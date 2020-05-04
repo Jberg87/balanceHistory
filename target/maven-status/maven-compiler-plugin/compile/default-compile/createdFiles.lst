@@ -1,0 +1,14 @@
+testNewProject\model\BankAccount.class
+testNewProject\service\PathSelector.class
+testNewProject\service\Regulator.class
+testNewProject\model\IngTransaction.class
+testNewProject\service\Accountant.class
+testNewProject\model\AbnAmroTransaction.class
+testNewProject\service\JsonParser.class
+testNewProject\service\TransactionLoader.class
+testNewProject\service\GoogleUpdater.class
+testNewProject\App.class
+testNewProject\model\BankTransaction.class
+testNewProject\service\AppConstants.class
+testNewProject\model\Balance.class
+testNewProject\model\Bank.class
