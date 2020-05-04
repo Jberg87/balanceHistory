@@ -35,9 +35,9 @@ public class TransactionLoader {
     }
 
     private List<IngTransaction> loadIngTransactions(String dir) {
-        List<String> transactionFilesPaths = getFiles(dir, ".csv");
-        List<List<String>> allTransactions = getRawTransactions(transactionFilesPaths, 1, ',', '"');
-        List<IngTransaction> ingTransactions = createIngBankTransactions(allTransactions, Bank.ING);
+        List<String> transactionFilesPaths = getFilePaths(dir, ".csv");
+        List<List<String>> allRawTransactions = getAllRawTransactions(transactionFilesPaths, 1, ';', '"');
+        List<IngTransaction> ingTransactions = createIngBankTransactions(allRawTransactions, Bank.ING);
         ingTransactions = createIngBankSpaarTransactions(ingTransactions);
         return ingTransactions;
     }
@@ -61,8 +61,8 @@ public class TransactionLoader {
     }
 
     private List<AbnAmroTransaction> loadAbnAmroTransactions(String dir) {
-        List<String> transactionFilesPaths = getFiles(dir, ".TAB");
-        List<List<String>> allTransactions = getRawTransactions(transactionFilesPaths, 0, '\t', null);
+        List<String> transactionFilesPaths = getFilePaths(dir, ".TAB");
+        List<List<String>> allTransactions = getAllRawTransactions(transactionFilesPaths, 0, '\t', null);
         List<AbnAmroTransaction> abnAmroTransactions = createAbnAmroBankTransactions(allTransactions, Bank.ABN);
         return abnAmroTransactions;
     }
@@ -74,6 +74,8 @@ public class TransactionLoader {
 
             IngTransaction transaction = new IngTransaction();
 
+            System.out.println( "Transaction Details size:" + transactionDetails.size() );
+            System.out.println( transactionDetails );
             try {
                 transaction.setDate(new SimpleDateFormat("yyyyMMdd").parse(transactionDetails.get(0)));
             } catch (ParseException e) {
@@ -130,23 +132,23 @@ public class TransactionLoader {
         return abnAmroTransactions;
     }
 
-    private List<String> getFiles(String dir, String suffix) {
+    private List<String> getFilePaths(String dir, String suffix) {
 
-        List<String> results = new ArrayList<>();
+        List<String> pathList = new ArrayList<>();
 
         File[] files = new File(dir).listFiles();
         //If this pathname does not denote a directory, then listFiles() returns null.
 
         for (File file : files) {
             if (file.isFile() && file.getName().endsWith(suffix)) {
-                results.add(dir + "\\" + file.getName());
+                pathList.add(dir + "\\" + file.getName());
             }
         }
 
-        return results;
+        return pathList;
     }
 
-    private List<List<String>> getRawTransactions(List<String> filesPaths, int skipLines, Character delimiter, Character quote) {
+    private List<List<String>> getAllRawTransactions(List<String> filesPaths, int skipLines, Character delimiter, Character quote) {
 
         List<List<String>> allRawTransactions = new ArrayList<>();
 
