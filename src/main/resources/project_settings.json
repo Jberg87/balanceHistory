@@ -1,0 +1,7 @@
+{
+  "project_settings": {
+    "application_name": "$your_app_name",
+    "spreadsheet_id": "$your_googlespreadsheet_id",
+    "user_id": "user"
+  }
+}

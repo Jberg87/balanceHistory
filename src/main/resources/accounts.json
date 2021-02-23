@@ -1,0 +1,18 @@
+{
+	"accounts": [
+		{
+			"iban": "123456789",
+			"owner": "John Doe",
+			"type": "Payment",
+			"description": "John Doe Payment account",
+			"offset": "1234.56"
+		},
+		{
+			"iban": "NL64ING0987654321",
+			"owner": "Jane Doe",
+			"type": "Savings",
+			"description": "Jane Doe secret savings",
+			"offset": "0.02"
+		}
+	]
+}
