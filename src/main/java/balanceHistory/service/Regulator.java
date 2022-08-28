@@ -1,8 +1,9 @@
-package testNewProject.service;
-
-import testNewProject.model.*;
+package balanceHistory.service;
 
 import javax.swing.*;
+
+import balanceHistory.model.*;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package testNewProject.model;
+package balanceHistory.model;
 
 public enum Bank {
     ING,

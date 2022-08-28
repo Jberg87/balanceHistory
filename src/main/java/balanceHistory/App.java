@@ -1,11 +1,11 @@
-package testNewProject;
-
-import testNewProject.model.*;
-import testNewProject.service.*;
+package balanceHistory;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+
+import balanceHistory.model.*;
+import balanceHistory.service.*;
 
 
 public class App {

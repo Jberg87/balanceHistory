@@ -1,4 +1,4 @@
-package testNewProject.service;
+package balanceHistory.service;
 
 import javax.swing.*;
 import java.awt.*;

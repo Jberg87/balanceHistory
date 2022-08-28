@@ -1,8 +1,4 @@
-package testNewProject.service;
-
-import testNewProject.model.Balance;
-import testNewProject.model.BankAccount;
-import testNewProject.model.BankTransaction;
+package balanceHistory.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +9,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import balanceHistory.model.Balance;
+import balanceHistory.model.BankAccount;
+import balanceHistory.model.BankTransaction;
 
 public class Accountant {
 

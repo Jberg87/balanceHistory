@@ -1,11 +1,12 @@
-package testNewProject.service;
+package balanceHistory.service;
 
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import testNewProject.model.BankAccount;
+
+import balanceHistory.model.BankAccount;
 
 import java.io.File;
 import java.io.FileNotFoundException;

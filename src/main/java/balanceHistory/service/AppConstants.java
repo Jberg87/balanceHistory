@@ -1,4 +1,4 @@
-package testNewProject.service;
+package balanceHistory.service;
 
 public class AppConstants {
 
