@@ -29,7 +29,7 @@ public class Accountant {
         for (BankAccount bankAccount : this.bankAccounts) {
             BankTransaction transaction = new BankTransaction();
             transaction.setAccount(bankAccount.getIban());
-            transaction.setDescription("USe offset as starting balance");
+            transaction.setDescription("Use offset as starting balance");
             transaction.setAmount(bankAccount.getOffset());
             try {
                 transaction.setDate(new SimpleDateFormat("yyyyMMdd").parse("20180101"));
@@ -70,12 +70,13 @@ public class Accountant {
 
                     firstTransaction = false;
 
-                } else if (!balance.getDate().toString().equals(transaction.getDate().toString())) { // new date so close old balance and make a new one for a new date
+                    // new date so close old balance and make a new one for a new date
+                } else if (!balance.getDate().toString().equals(transaction.getDate().toString())) { 
 
                     // Save previous balance
                     balances.add(balance);
 
-                    //fill gap between dates with new balances
+                    // fill gap between dates with new balances
                     ArrayList<Balance> intermediateBalances = fillBalances(balance, transaction.getDate());
                     balances.addAll(intermediateBalances);
 
@@ -90,17 +91,17 @@ public class Accountant {
                     balance.setDifference(tempDifference + transaction.getAmount());
                     balance.setBalance(tempBalance + transaction.getAmount());
 
-                } else { //Same day so only increase current balance
+                } else { // Same day so only increase current balance
                     balance.setDifference(balance.getDifference() + transaction.getAmount());
                     balance.setBalance(balance.getBalance() + transaction.getAmount());
                 }
             }
-            //add last balance to balance list
+            // add last balance to balance list
             balances.add(balance);
 
             // Add missing balances up until run date
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            String todayString = format.format( new Date() );
+            String todayString = format.format(new Date());
             LocalDate tomorrowLocalDate = LocalDate.parse(todayString).plusDays(1);
             Date tomorrow = Date.from(tomorrowLocalDate.atStartOfDay()
                     .atZone(ZoneId.systemDefault())
@@ -128,12 +129,13 @@ public class Accountant {
         balanceDate = balanceDate.plusDays(1);
 
         while (!balanceDate.isEqual(transactionDate)) {
-            //make new balance
+            // make new balance
             Balance newBalance = new Balance();
             newBalance.setAccountOwner(balance.getAccountOwner());
             newBalance.setAccountType(balance.getAccountType());
 
-//            newBalance.setDate( Date.from(balanceDate.) java.sql.Date.valueOf(balanceDate));
+            // newBalance.setDate( Date.from(balanceDate.)
+            // java.sql.Date.valueOf(balanceDate));
             newBalance.setDate(Date.from(balanceDate.atStartOfDay()
                     .atZone(ZoneId.systemDefault())
                     .toInstant()));
@@ -148,6 +150,14 @@ public class Accountant {
         return balances;
     }
 
+    public BankAccount getBankAccountByIban(String iban) {
+        for(BankAccount bankAccount : bankAccounts) {
+            if(iban.equals(bankAccount.getIban()))
+                return bankAccount;
+        }
+
+        return null;
+    }
 
     public ArrayList<BankAccount> getBankAccounts() {
         return bankAccounts;

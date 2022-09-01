@@ -8,6 +8,8 @@ public class BankTransaction {
     private int id;
     private Date date;
     private String account;
+    private String accountOwner;
+    private String accountType;
     private Float amount;
     private String description;
 
@@ -18,6 +20,8 @@ public class BankTransaction {
                 "id=" + id +
                 ", date=" + date +
                 ", account=" + account +
+                ", accountOwner=" + accountOwner +
+                ", accountType=" + accountType +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
                 '}';
@@ -45,6 +49,22 @@ public class BankTransaction {
 
     public void setAccount(String accountNumber) {
         this.account = accountNumber;
+    }
+
+    public String getAccountOwner() {
+        return accountOwner;
+    }
+
+    public void setAccountOwner(String accountOwner) {
+        this.accountOwner = accountOwner;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
     }
 
     public Float getAmount() {
