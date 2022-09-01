@@ -1,6 +1,5 @@
 /.idea/
 /target/
-/tokens/
 tokens/StoredCredential
 .vscode/launch.json
 .vscode/settings.json
