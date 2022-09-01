@@ -27,11 +27,11 @@ public class App {
         TransactionLoader transactionLoader = new TransactionLoader();
         ArrayList<BankTransaction> bankTransactions = transactionLoader.loadTransactions(AppConstants.FILES_PATH);
 
-        // Provide the regulator all the transactions
+        // Provide the regulator all the transactions and accountant for the respective account info
         Regulator regulator = new Regulator();
-        regulator.addBankTransactions(dummyTransactions);
-        regulator.addBankTransactions(bankTransactions);
-        regulator.defineBankAccounts();
+        regulator.addBankTransactions(accountant, dummyTransactions);
+        regulator.addBankTransactions(accountant, bankTransactions);
+        regulator.defineBankAccounts(accountant);
 
         System.out.println("Amount of bank accounts from accountant: " + accountant.getBankAccounts().size());
         System.out.println("Amount of bank transactions loaded: " + bankTransactions.size());
