@@ -13,11 +13,9 @@ public class App {
 
 
         // Start with where all data and configuration resides
-        // PathSelector pathSelector = new PathSelector();
-        // AppConstants.FILES_PATH = pathSelector.selectPath();
-
-        AppConstants.FILES_PATH = "C:\\Users\\jespe\\dev\\rekeningoverzicht_data";
-
+        PathSelector pathSelector = new PathSelector();
+        AppConstants.FILES_PATH = pathSelector.selectPath();
+        
         // Load new bank accounts from json file
         Accountant accountant = new Accountant();
         accountant.loadBankAccounts();
