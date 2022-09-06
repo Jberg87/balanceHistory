@@ -56,11 +56,13 @@ public class JsonParser {
                 BankAccount bankAccount = new BankAccount();
 
                 JSONObject jsonAccount = (JSONObject) jsonObj;
+                bankAccount.setBank( (String) jsonAccount.get( "bank"));
                 bankAccount.setIban( (String) jsonAccount.get( "iban"));
                 bankAccount.setOwner( (String) jsonAccount.get( "owner"));
                 bankAccount.setType( (String) jsonAccount.get( "type"));
                 bankAccount.setDescription( (String) jsonAccount.get( "description"));
                 bankAccount.setOffset( Float.parseFloat ( (String) jsonAccount.get("offset")) );
+                bankAccount.setBasisIban( (String) jsonAccount.get( "basis_iban"));
 
                 bankAccounts.add(bankAccount);
             } );

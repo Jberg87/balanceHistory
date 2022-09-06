@@ -7,11 +7,12 @@ public class BankTransaction {
 
     private int id;
     private Date date;
-    private String account;
-    private String accountOwner;
-    private String accountType;
+    private BankAccount bankAccountFrom;
+    private BankAccount bankAccountTo;
     private Float amount;
     private String description;
+
+    private String rawIban;
 
 
     @Override
@@ -19,9 +20,8 @@ public class BankTransaction {
         return "BankTransaction{" +
                 "id=" + id +
                 ", date=" + date +
-                ", account=" + account +
-                ", accountOwner=" + accountOwner +
-                ", accountType=" + accountType +
+                ", accountFrom=" + Objects.toString(bankAccountFrom.getIban()) +
+                ", accountTo=" + Objects.toString(bankAccountTo.getIban())  +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
                 '}';
@@ -41,30 +41,6 @@ public class BankTransaction {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String accountNumber) {
-        this.account = accountNumber;
-    }
-
-    public String getAccountOwner() {
-        return accountOwner;
-    }
-
-    public void setAccountOwner(String accountOwner) {
-        this.accountOwner = accountOwner;
-    }
-
-    public String getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
     }
 
     public Float getAmount() {
@@ -89,13 +65,53 @@ public class BankTransaction {
         if (!(o instanceof BankTransaction)) return false;
         BankTransaction that = (BankTransaction) o;
         return Objects.equals(getDate(), that.getDate()) &&
-                Objects.equals(getAccount(), that.getAccount()) &&
+                Objects.equals(getBankAccountFrom(), that.getBankAccountFrom()) &&
+                Objects.equals(getBankAccountTo(), that.getBankAccountTo()) &&
                 Objects.equals(getAmount(), that.getAmount()) &&
                 Objects.equals(getDescription(), that.getDescription());
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash( getDate(), getAccount(), getAmount(), getDescription());
+    /**
+     * @return BankAccount return the bankAccountFrom
+     */
+    public BankAccount getBankAccountFrom() {
+        return bankAccountFrom;
     }
+
+    /**
+     * @param bankAccountFrom the bankAccountFrom to set
+     */
+    public void setBankAccountFrom(BankAccount bankAccountFrom) {
+        this.bankAccountFrom = bankAccountFrom;
+    }
+
+    /**
+     * @return BankAccount return the bankAccountTo
+     */
+    public BankAccount getBankAccountTo() {
+        return bankAccountTo;
+    }
+
+    /**
+     * @param bankAccountTo the bankAccountTo to set
+     */
+    public void setBankAccountTo(BankAccount bankAccountTo) {
+        this.bankAccountTo = bankAccountTo;
+    }
+
+
+    /**
+     * @return String return the rawIban
+     */
+    public String getRawIban() {
+        return rawIban;
+    }
+
+    /**
+     * @param rawIban the rawIban to set
+     */
+    public void setRawIban(String rawIban) {
+        this.rawIban = rawIban;
+    }
+
 }

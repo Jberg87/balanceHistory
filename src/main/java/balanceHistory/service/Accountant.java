@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import balanceHistory.model.Balance;
@@ -16,9 +17,10 @@ import balanceHistory.model.BankTransaction;
 
 public class Accountant {
 
-    ArrayList<BankAccount> bankAccounts = new ArrayList<>();
+    private ArrayList<BankAccount> bankAccounts = new ArrayList<>();
+    private ArrayList<BankTransaction> bankTransactions = new ArrayList<>();
 
-    public void makeNewBankAccounts() {
+    public void loadBankAccounts() {
         JsonParser jsonParser = new JsonParser();
         bankAccounts.addAll(jsonParser.readBankAccounts(AppConstants.FILES_PATH + "\\accounts.json"));
     }
@@ -28,7 +30,7 @@ public class Accountant {
 
         for (BankAccount bankAccount : this.bankAccounts) {
             BankTransaction transaction = new BankTransaction();
-            transaction.setAccount(bankAccount.getIban());
+            transaction.setBankAccountFrom(bankAccount);
             transaction.setDescription("Use offset as starting balance");
             transaction.setAmount(bankAccount.getOffset());
             try {
@@ -44,14 +46,23 @@ public class Accountant {
         return dummyTransactions;
     }
 
-    public ArrayList<Balance> calculateBalances(List<BankTransaction> transactions) {
+    public void addBankTransactions(ArrayList<BankTransaction> rawBankTransactions) {
+
+        // deduplicate
+        this.bankTransactions.addAll(rawBankTransactions.stream()
+                .collect(Collectors.collectingAndThen(
+                        (Collectors.toCollection(() -> new TreeSet<>(Comparator.comparingInt(BankTransaction::getId)))),
+                        ArrayList::new)));
+    }
+
+    public ArrayList<Balance> calculateBalances() {
 
         ArrayList<Balance> balances = new ArrayList<>();
 
         for (BankAccount account : this.bankAccounts) {
 
-            List<BankTransaction> accountTransactions = transactions.stream()
-                    .filter(bankTransaction -> bankTransaction.getAccount().equals(account.getIban()))
+            List<BankTransaction> accountTransactions = this.bankTransactions.stream()
+                    .filter(bankTransaction -> bankTransaction.getBankAccountFrom() == account)
                     .sorted(Comparator.comparing(BankTransaction::getDate))
                     .collect(Collectors.toList());
 
@@ -62,8 +73,7 @@ public class Accountant {
             for (BankTransaction transaction : accountTransactions) {
 
                 if (firstTransaction) { // first transaction
-                    balance.setAccountOwner(account.getOwner());
-                    balance.setAccountType(account.getType());
+                    balance.setAccount(account);
                     balance.setDate(transaction.getDate());
                     balance.setDifference(transaction.getAmount());
                     balance.setBalance(transaction.getAmount());
@@ -85,8 +95,7 @@ public class Accountant {
                     Float tempDifference = Float.valueOf("0.0");
 
                     balance = new Balance();
-                    balance.setAccountOwner(account.getOwner());
-                    balance.setAccountType(account.getType());
+                    balance.setAccount(account);
                     balance.setDate(transaction.getDate());
                     balance.setDifference(tempDifference + transaction.getAmount());
                     balance.setBalance(tempBalance + transaction.getAmount());
@@ -131,8 +140,7 @@ public class Accountant {
         while (!balanceDate.isEqual(transactionDate)) {
             // make new balance
             Balance newBalance = new Balance();
-            newBalance.setAccountOwner(balance.getAccountOwner());
-            newBalance.setAccountType(balance.getAccountType());
+            newBalance.setAccount(balance.getAccount());
 
             // newBalance.setDate( Date.from(balanceDate.)
             // java.sql.Date.valueOf(balanceDate));
@@ -162,4 +170,13 @@ public class Accountant {
     public ArrayList<BankAccount> getBankAccounts() {
         return bankAccounts;
     }
+
+    /**
+     * @return ArrayList<BankTransaction> return the bankTransactions
+     */
+    public ArrayList<BankTransaction> getBankTransactions() {
+        return bankTransactions;
+    }
+
+
 }

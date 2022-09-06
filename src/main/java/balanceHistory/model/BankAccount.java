@@ -2,18 +2,19 @@ package balanceHistory.model;
 
 public class BankAccount {
 
-    private Bank bank;
+    private String bank;
     private String iban;
     private String owner;
     private String type;
     private String description;
     private float offset;
+    private String basisIban;
 
-    public Bank getBank() {
+    public String getBank() {
         return bank;
     }
 
-    public void setBank(Bank bank) {
+    public void setBank(String bank) {
         this.bank = bank;
     }
 
@@ -56,4 +57,19 @@ public class BankAccount {
     public void setOffset(float offset) {
         this.offset = offset;
     }
+    
+    /**
+     * @return String return the basisIban
+     */
+    public String getBasisIban() {
+        return basisIban;
+    }
+
+    /**
+     * @param basisIban the basisIban to set
+     */
+    public void setBasisIban(String basisIban) {
+        this.basisIban = basisIban;
+    }
+
 }

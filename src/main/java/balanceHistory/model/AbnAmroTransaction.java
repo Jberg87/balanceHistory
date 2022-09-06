@@ -16,7 +16,8 @@ public class AbnAmroTransaction extends BankTransaction {
         if (!super.equals(o)) return false;
         AbnAmroTransaction that = (AbnAmroTransaction) o;
         return Objects.equals(getDate(), that.getDate()) &&
-                Objects.equals(getAccount(), that.getAccount()) &&
+                Objects.equals(getBankAccountFrom(), that.getBankAccountFrom()) &&
+                Objects.equals(getBankAccountTo(), that.getBankAccountTo()) &&
                 Objects.equals(getAmount(), that.getAmount()) &&
                 Objects.equals(getDescription(), that.getDescription()) &&
                 Float.compare(that.getBeforeBalance(), getBeforeBalance()) == 0 &&
@@ -27,7 +28,7 @@ public class AbnAmroTransaction extends BankTransaction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getCurrency(), getBeforeBalance(), getAfterBalance(), getOtherDate());
+        return Objects.hash(getDate(), getBankAccountFrom(), getAmount(), getAfterBalance());
     }
 
     @Override

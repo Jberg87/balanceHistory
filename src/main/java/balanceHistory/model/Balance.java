@@ -5,8 +5,7 @@ import java.util.Date;
 public class Balance {
 
     private Date date;
-    private String accountOwner;
-    private String accountType;
+    private BankAccount account;
     private Float difference;
     private Float balance;
 
@@ -16,22 +15,6 @@ public class Balance {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getAccountOwner() {
-        return accountOwner;
-    }
-
-    public void setAccountOwner(String accountOwner) {
-        this.accountOwner = accountOwner;
-    }
-
-    public String getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
     }
 
     public Float getDifference() {
@@ -49,4 +32,19 @@ public class Balance {
     public void setBalance(Float balance) {
         this.balance = balance;
     }
+
+    /**
+     * @return BankAccount return the account
+     */
+    public BankAccount getAccount() {
+        return account;
+    }
+
+    /**
+     * @param account the account to set
+     */
+    public void setAccount(BankAccount account) {
+        this.account = account;
+    }
+
 }

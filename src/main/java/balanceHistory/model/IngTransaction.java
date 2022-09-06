@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class IngTransaction extends BankTransaction {
     private String note1;
-    private String oppositeAccount;
     private String mutationTypeCode;
     private String sign;
     private String mutationType;
@@ -17,11 +16,11 @@ public class IngTransaction extends BankTransaction {
         if (!super.equals(o)) return false;
         IngTransaction that = (IngTransaction) o;
         return Objects.equals(getDate(), that.getDate()) &&
-                Objects.equals(getAccount(), that.getAccount()) &&
+                Objects.equals(getBankAccountFrom(), that.getBankAccountFrom()) &&
+                Objects.equals(getBankAccountTo(), that.getBankAccountTo()) &&
                 Objects.equals(getAmount(), that.getAmount()) &&
                 Objects.equals(getDescription(), that.getDescription()) &&
                 Objects.equals(getNote1(), that.getNote1()) &&
-                Objects.equals(getOppositeAccount(), that.getOppositeAccount()) &&
                 Objects.equals(getMutationTypeCode(), that.getMutationTypeCode()) &&
                 Objects.equals(getSign(), that.getSign()) &&
                 Objects.equals(getMutationType(), that.getMutationType()) &&
@@ -30,14 +29,13 @@ public class IngTransaction extends BankTransaction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getNote1(), getOppositeAccount(), getMutationTypeCode(), getSign(), getMutationType(), getNote2());
+        return Objects.hash(getDate(), getBankAccountFrom(), getAmount(), getNote1(), getMutationTypeCode(), getSign(), getMutationType(), getNote2());
     }
 
     @Override
     public String toString() {
         return "IngTransaction{" +
                 "note1='" + note1 + '\'' +
-                ", oppositeAccount='" + oppositeAccount + '\'' +
                 ", mutationTypeCode='" + mutationTypeCode + '\'' +
                 ", sign='" + sign + '\'' +
                 ", mutationType='" + mutationType + '\'' +
@@ -51,14 +49,6 @@ public class IngTransaction extends BankTransaction {
 
     public void setNote1(String note1) {
         this.note1 = note1;
-    }
-
-    public String getOppositeAccount() {
-        return oppositeAccount;
-    }
-
-    public void setOppositeAccount(String oppositeAccount) {
-        this.oppositeAccount = oppositeAccount;
     }
 
     public String getMutationTypeCode() {
